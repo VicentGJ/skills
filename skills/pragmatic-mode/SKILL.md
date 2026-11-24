@@ -21,16 +21,19 @@ no todo tool, keep the list in your reply and update it at each step.
 
 ## Gates
 
-The flow has two hard stops, and both come before production code: the
-requirements answers (step 1) and the prototype pick (step 2). After the pick,
-run to the PR without asking. Opening the PR is part of the flow.
+Align with the user at the start, deliver to them at the end, and work
+autonomously in between. The start has two hard stops, both before production
+code: the requirements answers (step 1) and the prototype pick (step 2). The
+end is the PR.
 
 - Skip step 1 when the request already closes the functional requirements. Ask
   only what is still open.
 - Skip step 2 when the change has no UI or UX surface.
-- Outside the gates, pause only for irreversible or outward actions beyond the
-  PR: deploys, data deletion, force-pushes to shared branches, messages to
-  people.
+- After the gates, run to the PR without asking. Actions the agreed
+  requirements call for proceed, irreversible ones included. Make every other
+  implementation choice yourself and report it in the final reply.
+- Stop only when the work needs a functional decision that the request and the
+  agreed requirements do not settle. Ask it as in step 1, then continue.
 
 ## Flow
 
