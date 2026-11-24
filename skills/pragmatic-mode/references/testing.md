@@ -24,65 +24,26 @@ operation works. Do not default to test-driven development.
     write down every way the unit could fail first, then the tests, then the
     code.
 
-## Test the completed operation
+## Writing a test
 
-Test through the public entry point and follow the operation to its meaningful
-conclusion. Assert the externally visible result or the final persisted
-business outcome. A purchase test places the order, confirms payment, processes
-fulfillment, and checks that the completed transaction records the right items
-and recipient. An order-creation response alone does not prove the purchase
-works.
-
-Mock external systems at their real boundaries. Keep routing, validation,
-domain behavior, and persistence real wherever practical. Never mock the
-behavior being verified.
-
-## Consolidate around outcomes
-
-- Before adding a test, read the existing tests for the operation. Adapt an
-  existing scenario or fixture when it can prove the change.
-- Touching several layers does not justify a test per layer. One
-  completed-operation test usually proves what a request, schema, module, and
-  persistence test would each repeat.
-- Add a separate test only for a materially different business outcome or
-  execution path, and name that difference. "Extra coverage" or "preventing
-  regressions" is not a reason on its own.
-
-## Keep scenarios focused
-
-- Use the smallest realistic fixture that makes the behavior observable. Add
-  variation only when it changes the outcome. Two records with the same display
-  name help when testing selection by identity. Unrelated accounts, quantities,
-  retries, and options do not.
-- Assert what proves success. Assert an intermediate step only when it is an
-  external effect the final outcome cannot show, such as the message sent to an
-  external service.
-- Never add data providers or test matrices by default. Each case must expose a
-  distinction the existing scenario does not.
-
-## Match verification to the change
-
-- A data-type change does not need a new suite of boundary and migration tests.
-  Update fixtures and expectations, then show through the business flow that
-  the value survives the operation.
-- Write dedicated migration tests only for real transformations, backfills,
-  reconciliation, or data-loss risk, not for straightforward column changes.
-- Run the narrowest relevant checks. Broaden only when failures or integration
-  risk justify it.
-
-## Test real contracts and failure modes
-
-- Find out who controls the callers and read their implementations or
-  documented contracts before inventing input scenarios or defensive
-  requirements.
-- Do not add malformed-input matrices for hypothetical clients, or production
-  guards that exist only to satisfy such tests.
-- Test error cases that are real business rules or consequential failures:
-  payment failure, wrong ownership, duplicate processing.
+- Drive the operation through its public entry point to its conclusion. Assert
+  the visible result or the final persisted outcome: a purchase test checks the
+  completed transaction, not the order-creation response.
+- Mock only external systems, at their real boundary. Never mock the behavior
+  under test.
+- Extend an existing scenario or fixture before adding a test. Add one only for
+  a materially different outcome or path, never one per layer touched.
+- Use the smallest fixture that makes the behavior observable and assert only
+  what proves success. No matrices or data providers unless each case is a
+  distinct outcome.
+- Take inputs and error cases from the callers' real contracts and business
+  rules (payment failure, wrong ownership, duplicate processing), not from
+  hypothetical clients. Add no production guards just to satisfy a test.
+- For a data-type change, update existing fixtures. Write a migration test only
+  for a real transformation, backfill, or data-loss risk.
+- Run the narrowest relevant checks. Broaden only when failures justify it.
 
 ## Before finishing
 
-For each added test, state the completed outcome it proves and why existing
-coverage does not already prove it. Remove overlapping assertions and
-scenarios. Optimize for clarity and maintenance, not test count or line count.
-Shortening a test by removing its meaningful conclusion is not simplification.
+For each added test, name the completed outcome it proves that existing
+coverage did not. Remove the rest.
