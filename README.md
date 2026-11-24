@@ -4,14 +4,15 @@ Personal agent skills for practical engineering work.
 
 ## Install
 
-Install with the [skills CLI](https://skills.sh/docs):
+Install every skill for your user with the [skills CLI](https://skills.sh/docs):
 
 ```sh
-npx skills add VicentGJ/skills --skill pragmatic-mode
-npx skills add VicentGJ/skills --skill pragmatic-review
+npx skills add VicentGJ/skills -g -a claude-code -a codex -y
 ```
 
-Add `-g` for installation across projects, or `-a codex` / `-a claude-code` to select an agent. `pragmatic-mode` runs `pragmatic-review` as its self-review step, so install both.
+This puts the skills in `~/.agents/skills/`, which Codex reads, and symlinks them into `~/.claude/skills/` for Claude Code. Selecting `codex` is what places them under `.agents`; with `-a claude-code` alone, the CLI copies them into `~/.claude/skills/` instead. Drop `-g` to install into the current project, or drop `-y` to pick skills and agents interactively.
+
+`pragmatic-mode` runs `pragmatic-review` as its self-review step, so install both.
 
 ## Available skills
 
